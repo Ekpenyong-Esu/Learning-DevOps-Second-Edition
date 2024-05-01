@@ -17,8 +17,9 @@ resource "azurerm_virtual_network" "vnet" {
 resource "azurerm_subnet" "subnet" {
   name                 = "book-subnet"
   virtual_network_name = azurerm_virtual_network.vnet.name
+  address_space        = ["10.0.0.0/16"]
   resource_group_name  = azurerm_resource_group.rg.name
-  address_prefix       = "10.0.10.0/24"
+  address_prefixes       = "10.0.10.0/24"
 }
 
 resource "azurerm_network_interface" "nic" {
@@ -38,8 +39,9 @@ resource "azurerm_public_ip" "pip" {
   name                         = "book-ip"
   location                     = "West Europe"
   resource_group_name          = azurerm_resource_group.rg.name
-  public_ip_address_allocation = "Dynamic"
+  allocation_method            = "Dynamic"
   domain_name_label            = "bookdevops"
+
 }
 
 resource "azurerm_storage_account" "stor" {
